@@ -2,33 +2,170 @@
 <html lang="en" class="height-full" data-a11y-animated-images="system" data-a11y-link-underlines="true">
 <head>
   <meta charset="utf-8">
-  <link media="all" rel="stylesheet"
-    href="./primer.css" />
-  <link media="all" rel="stylesheet"
-    href="./site.css" />
-    <link media="all" rel="stylesheet"
-    href="./signup.css" />
-    <style>
-      *{
-        margin: 0;
-        padding: 0;
+  <title>Zcraft</title>
+  <link rel="icon" href="site.png" type="image/png">
+  <link media="all" rel="stylesheet" href="./primer.css" />
+  <link media="all" rel="stylesheet" href="./site.css" />
+  <link media="all" rel="stylesheet" href="./signup.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      color: white;
+      text-align: center;
+      z-index: 1;
+      position: relative;
+    }
+
+    /* 从下向上出现的动画 */
+    @keyframes fadeInFromBottom {
+      from {
+        opacity: 0;
+        transform: translateY(100%);
       }
-    </style>
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* 标题淡入效果 */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    h1 {
+      color: #007bff;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    .server-info p {
+      opacity: 0;
+      animation: fadeInFromBottom 1s ease forwards;
+    }
+
+    .profile {
+      display: flex;
+      align-items: center;
+      margin-top: 20px;
+      opacity: 0;
+      animation: fadeInFromBottom 1s ease forwards;
+      animation-delay: 1.5s;
+    }
+
+    .profile img {
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      margin-right: 20px;
+    }
+
+    .profile-description {
+      text-align: left;
+      max-width: 600px;
+    }
+
+    .btn {
+      position: relative;
+      display: inline-block;
+      padding: 10px 20px;
+      margin-top: 20px;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      opacity: 0;
+      animation: fadeInFromBottom 1s ease forwards;
+      animation-delay: 2s;
+      overflow: hidden;
+    }
+
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.6);
+      transform: scale(0);
+      animation: ripple-animation 0.6s linear;
+    }
+
+    @keyframes ripple-animation {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+
+    .bottom-text {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0.1;
+      color: rgba(255, 255, 255, 0.1);
+      user-select: none;
+    }
+  </style>
 </head>
-<body class="height-full d-flex"
-  style="word-wrap: break-word;">
+<body class="height-full d-flex" style="word-wrap: break-word;">
   <div class="js-warp-hide bg-gray-dark-mktg d-flex flex-auto flex-column overflow-hidden position-relative">
     <div class="signup-space">
       <div class="signup-stars"></div>
       <div class="signup-stars"></div>
       <div class="signup-stars"></div>
       <div class="signup-stars"></div>
-      <div class="signup-stars"></div>
-      <div class="signup-stars"></div>
     </div>
-    <img src="./hero-glow.svg" alt="Glowing universe"
-      class="js-warp-hide position-absolute overflow-hidden events-none"
-      style="top: 50%; left: 50%; width: 200%; transform: translate(-50%, -50%);">
+    <div class="container">
+      <h1>Zcraft</h1>
+      <div class="server-info">
+        <p style="animation-delay: 0.5s;">欢迎来到Zcraft服务器！在这里，你可以尽情享受游戏乐趣。</p>
+        <p style="animation-delay: 0.75s;">服务器IP地址：<code>play.simpfun.cn</code></p>
+        <p style="animation-delay: 1s;">端口号：<code>11008</code></p>
+      </div>
+      <div class="profile">
+        <img src="zihaomc.png" alt="zihaomc">
+        <div class="profile-description">
+          <p>这是zihaomc，一位热衷于Minecraft的玩家和服务器管理员。他致力于为玩家提供最佳的游戏体验。</p>
+        </div>
+      </div>
+      <a href="https://zihaomc.github.io/about-ourselves" class="btn" onclick="createRipple(event)">关于我们</a>
+    </div>
+    <div class="bottom-text">
+      Copyright © 2024 Zcraft All Right Reserved.
+    </div>
   </div>
+  <script>
+    function createRipple(event) {
+      const button = event.currentTarget;
+      const circle = document.createElement("span");
+      const diameter = Math.max(button.clientWidth, button.clientHeight);
+      const radius = diameter / 2;
+      circle.style.width = circle.style.height = `${diameter}px`;
+      circle.style.left = `${event.clientX - button.offsetLeft - radius}px`;
+      circle.style.top = `${event.clientY - button.offsetTop - radius}px`;
+      circle.classList.add("ripple");
+
+      const ripple = button.getElementsByClassName("ripple")[0];
+
+      if (ripple) {
+        ripple.remove();
+      }
+
+      button.appendChild(circle);
+    }
+  </script>
 </body>
 </html>
